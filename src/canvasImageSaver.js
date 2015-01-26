@@ -5,12 +5,36 @@ var CanvasImageSaver = function (canvas, cropOptions) {
   this.cropOptions = cropOptions;
   if (window.cordova) {
     if (window.canvas2ImagePlugin) {
-      // this.saverImplementator = new CordovaCanvas();
+      // TODO: extract to a CordovaCanvasSaver object
+      this.saverImplementator = {
+        save: function (canvas) {
+          // TODO: return promise
+          window.canvas2ImagePlugin.saveImageDataToLibrary(
+            function(msg) {
+              console.log(msg);
+            },
+            function(err) {
+              console.error(err);
+            },
+            canvas
+          );
+        }
+      };
     } else {
       throw('You are using cordova. This library requires canvas2ImagePlugin.');
     }
   } else {
-    // this.saverImplementator = new BrowserCanvas();
+    // TODO: extract to a BrowserCanvasSaver object
+    this.saverImplementator = {
+      save: function (canvas) {
+        var anchor = document.createElement('a');
+        // TODO: configure name
+        anchor.download = 'avatar.png';
+        anchor.href = avatar.toDataURL('image/png');
+        anchor.click();
+        // TODO: return promise
+      }
+    };
   }
 };
 
@@ -42,5 +66,6 @@ CanvasImageSaver.prototype.save = function () {
       canvas.width, canvas.height
     );
   }
-  // return this.saverImplementator.save(canvas);
+
+  return this.saverImplementator.save(canvas);
 };
