@@ -1,21 +1,28 @@
 (function(window){
 'use strict';
 
-var CanvasImageSaver = function (canvas, cropOptions) {
+var CanvasImageSaver = function (canvas, cropOptions, successCallback, errorCallback, callbackContext) {
+  var _this = this,
+      noop = function () {};
   this.canvas = canvas;
   this.cropOptions = cropOptions;
+  this.successCallback = successCallback || noop;
+  this.errorCallback = errorCallback || noop;
+  this.callbackContext = callbackContext || this;
+
   if (window.cordova) {
     if (window.canvas2ImagePlugin) {
       // TODO: extract to a CordovaCanvasSaver object
       this.saverImplementator = {
         save: function (canvas) {
-          // TODO: return promise
           window.canvas2ImagePlugin.saveImageDataToLibrary(
             function(msg) {
               console.log(msg);
+              _this.successCallback.call(_this.callbackContext, canvas);
             },
             function(err) {
               console.error(err);
+              _this.errorCallback.call(_this.callbackContext);
             },
             canvas
           );
@@ -30,10 +37,10 @@ var CanvasImageSaver = function (canvas, cropOptions) {
       save: function (canvas) {
         var anchor = document.createElement('a');
         // TODO: configure name
-        anchor.download = 'avatar.png';
-        anchor.href = avatar.toDataURL('image/png');
+        anchor.download = 'canvas.png';
+        anchor.href = canvas.toDataURL('image/png');
         anchor.click();
-        // TODO: return promise
+        _this.successCallback.call(_this.callbackContext, canvas);
       }
     };
   }
@@ -41,11 +48,6 @@ var CanvasImageSaver = function (canvas, cropOptions) {
 
 CanvasImageSaver.prototype = Object.create(Object.prototype);
 CanvasImageSaver.prototype.constructor = CanvasImageSaver;
-CanvasImageSaver.prototype.configure = function (canvas, cropOptions) {
-  this.canvas = canvas;
-  this.cropOptions = cropOptions;
-  return this;
-};
 
 CanvasImageSaver.prototype.save = function () {
   var canvas = this.canvas;
