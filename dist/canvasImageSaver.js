@@ -1,3 +1,6 @@
+(function(window){
+'use strict';
+
 var CanvasImageSaver = function (canvas, cropOptions) {
   this.canvas = canvas;
   this.cropOptions = cropOptions;
@@ -69,3 +72,5 @@ CanvasImageSaver.prototype.save = function () {
 };
 
 window.CanvasImageSaver = CanvasImageSaver;
+
+})(window);

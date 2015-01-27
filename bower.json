@@ -1,0 +1,23 @@
+{
+  "name": "canvas-image-saver",
+  "version": "0.0.1",
+  "homepage": "https://github.com/aaccurso/canvas-image-saver",
+  "authors": [
+    "aaccurso <accurso.alan@gmail.com>"
+  ],
+  "description": "Wrapper for Cordova canvas2image plugin.",
+  "main": "dist/canvasImageSaver.js",
+  "keywords": [
+    "canvas",
+    "cordova",
+    "HTML5"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ],
+  "private": false
+}
