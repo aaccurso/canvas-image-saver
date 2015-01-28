@@ -7,6 +7,8 @@ Cool library that let's you save your canvas as a png image on desktop and mobil
 ## Installation
 `bower install canvas-image-saver --save`
 
+Add script tag in your index.html
+
 ## Parameters
 * `canvas`: The canvas HTML5 element you want to save as image.
 * `cropOptions`: _Optional._
@@ -22,7 +24,8 @@ Cool library that let's you save your canvas as a png image on desktop and mobil
 
 ## Usage (Phaser example)
 ```js
-var canvasImageSaver = new CanvasImageSaver(this.game.canvas, {
+var canvasImageSaver = new window.CanvasImageSaver(
+  this.game.canvas, {
     xCropOffset: 180,
     yCropOffset: 0,
     width: 470,
