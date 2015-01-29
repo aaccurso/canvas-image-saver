@@ -1,4 +1,10 @@
-var CanvasImageSaver = function (canvas, cropOptions, successCallback, errorCallback, callbackContext) {
+if (typeof exports === 'object' && typeof module !== 'undefined') {
+  module.exports = CanvasImageSaver;
+} else {
+  global.CanvasImageSaver = CanvasImageSaver;
+}
+
+function CanvasImageSaver (canvas, cropOptions, successCallback, errorCallback, callbackContext) {
   var _this = this,
       noop = function () {};
   this.canvas = canvas;
@@ -43,31 +49,29 @@ var CanvasImageSaver = function (canvas, cropOptions, successCallback, errorCall
   }
 };
 
-CanvasImageSaver.prototype = Object.create(Object.prototype);
-CanvasImageSaver.prototype.constructor = CanvasImageSaver;
+CanvasImageSaver.prototype = {
+  constructor: CanvasImageSaver,
+  save: function () {
+    var canvas = this.canvas;
 
-CanvasImageSaver.prototype.save = function () {
-  var canvas = this.canvas;
+    if (this.cropOptions) {
+      // Sets default crop options
+      this.cropOptions.xCropOffset = this.cropOptions.xCropOffset || 0;
+      this.cropOptions.yCropOffset = this.cropOptions.yCropOffset || 0;
+      this.cropOptions.width = this.cropOptions.width || this.canvas.width - this.cropOptions.xCropOffset;
+      this.cropOptions.height = this.cropOptions.height || this.canvas.height - this.cropOptions.yCropOffset;
+      // Creates temporal canvas to draw cropped image
+      canvas = document.createElement('canvas');
+      canvas.width = this.cropOptions.width;
+      canvas.height = this.cropOptions.height;
+      canvas.getContext('2d').drawImage(this.canvas,
+        this.cropOptions.xCropOffset, this.cropOptions.yCropOffset,
+        canvas.width, canvas.height,
+        0, 0,
+        canvas.width, canvas.height
+      );
+    }
 
-  if (this.cropOptions) {
-    // Sets default crop options
-    this.cropOptions.xCropOffset = this.cropOptions.xCropOffset || 0;
-    this.cropOptions.yCropOffset = this.cropOptions.yCropOffset || 0;
-    this.cropOptions.width = this.cropOptions.width || this.canvas.width - this.cropOptions.xCropOffset;
-    this.cropOptions.height = this.cropOptions.height || this.canvas.height - this.cropOptions.yCropOffset;
-    // Creates temporal canvas to draw cropped image
-    canvas = document.createElement('canvas');
-    canvas.width = this.cropOptions.width;
-    canvas.height = this.cropOptions.height;
-    canvas.getContext('2d').drawImage(this.canvas,
-      this.cropOptions.xCropOffset, this.cropOptions.yCropOffset,
-      canvas.width, canvas.height,
-      0, 0,
-      canvas.width, canvas.height
-    );
+    return this.saverImplementator.save(canvas);
   }
-
-  return this.saverImplementator.save(canvas);
 };
-
-window.CanvasImageSaver = CanvasImageSaver;

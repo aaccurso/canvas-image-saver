@@ -11,7 +11,7 @@ gulp.task('default', ['build']);
 gulp.task('build', function() {
   return gulp.src(gulpConfig.srcFiles)
     .pipe(concat('canvasImageSaver.js'))
-    .pipe(wrap("(function(window){\n'use strict';\n\n<%= contents %>\n})(window);"))
+    .pipe(wrap("(function(global){\n'use strict';\n\n<%= contents %>\n})(this);"))
     .pipe(gulp.dest(gulpConfig.dist))
     .pipe(uglify())
     .pipe(rename({
@@ -21,7 +21,7 @@ gulp.task('build', function() {
 });
 
 gulp.task('watch', ['build'], function() {
-  gulp.watch([gulpConfig.srcFiles, gulpConfig.testFiles], ['build']);
+  gulp.watch(gulpConfig.srcFiles, ['build']);
 });
 
 gulp.task('bump', function () {
