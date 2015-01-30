@@ -1,3 +1,8 @@
+/*!
+ * canvasImageSaver v0.1.1
+ * Copyright 2015 aaccurso <accurso.alan@gmail.com>
+ * See LICENSE in this repository for license information
+ */
 (function(global){
 'use strict';
 

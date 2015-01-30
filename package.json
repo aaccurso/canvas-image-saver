@@ -1,12 +1,13 @@
 {
   "name": "canvas-image-saver",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Wrapper for Cordova canvas2image plugin.",
   "main": "dist/canvasImageSaver.js",
   "devDependencies": {
     "gulp": "^3.8.7",
     "gulp-bump": "^0.1.11",
     "gulp-concat": "^2.3.4",
+    "gulp-header": "^1.2.2",
     "gulp-jshint": "^1.8.4",
     "gulp-rename": "^1.2.0",
     "gulp-uglify": "^0.3.1",
