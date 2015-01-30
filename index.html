@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Canvas-image-saver by aaccurso</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Canvas-image-saver</h1>
+        <p>Cool library that let&#39;s you save your canvas as a png image on desktop and mobile. It also provides cropping options.</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/aaccurso/canvas-image-saver" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/aaccurso/canvas-image-saver/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/aaccurso/canvas-image-saver/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <p>Cool library that let's you save your canvas as a png image on desktop and mobile. It also provides cropping options.</p>
+
+<blockquote>
+<p>For mobile compatibility you need <a href="http://cordova.apache.org/">Cordova</a> and <a href="https://github.com/devgeeks/Canvas2ImagePlugin">Canvas2ImagePlugin</a> as dependencies.</p>
+</blockquote>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<h3>
+<a id="bower" class="anchor" href="#bower" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bower</h3>
+
+<ol>
+<li>Install with bower: <code>bower install canvas-image-saver --save</code>
+</li>
+<li>Add script tag in your index.html: <code>&lt;script src="bower_components/canvas-image-saver/dist/canvasImageSaver.min.js"&gt;&lt;/script&gt;</code>
+</li>
+</ol>
+
+<h3>
+<a id="npm--browserify" class="anchor" href="#npm--browserify" aria-hidden="true"><span class="octicon octicon-link"></span></a>Npm &amp; Browserify</h3>
+
+<ol>
+<li>Install with npm: <code>npm install canvas-image-saver --save</code>
+</li>
+<li>Require with browserify: <code>var CanvasImageSaver = require('canvas-image-saver');</code>
+</li>
+</ol>
+
+<h2>
+<a id="parameters" class="anchor" href="#parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Parameters</h2>
+
+<ul>
+<li>
+<code>canvas</code>: The canvas HTML5 element you want to save as image.</li>
+<li>
+<code>cropOptions</code>: <em>Optional.</em>
+</li>
+<li>
+<code>successCallback</code>: <em>Optional.</em>
+</li>
+<li>
+<code>errorCallback</code> <em>Optional.</em>
+</li>
+<li>
+<code>callbackContext</code> <em>Optional.</em>
+</li>
+</ul>
+
+<h3>
+<a id="crop-options" class="anchor" href="#crop-options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Crop Options</h3>
+
+<ul>
+<li>
+<code>xCropOffset</code>: <em>Optional.</em> The x coordinate where to start clipping.</li>
+<li>
+<code>yCropOffset</code>: <em>Optional.</em> The y coordinate where to start clipping.</li>
+<li>
+<code>width</code>: <em>Optional.</em> The width of the clipped image.</li>
+<li>
+<code>height</code>: <em>Optional.</em> The height of the clipped image.</li>
+</ul>
+
+<h2>
+<a id="usage-phaser-example" class="anchor" href="#usage-phaser-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage (Phaser example)</h2>
+
+<div class="highlight highlight-js"><pre><span class="pl-s">var</span> canvasImageSaver <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">CanvasImageSaver</span>(
+  <span class="pl-v">this</span>.game.canvas, {
+    xCropOffset<span class="pl-k">:</span> <span class="pl-c1">180</span>,
+    yCropOffset<span class="pl-k">:</span> <span class="pl-c1">0</span>,
+    width<span class="pl-k">:</span> <span class="pl-c1">470</span>,
+    height<span class="pl-k">:</span> <span class="pl-v">this</span>.game.<span class="pl-sc">height</span>
+  }, <span class="pl-st">function</span> (<span class="pl-vpf">canvas</span>) {
+    <span class="pl-c">// Success callback</span>
+  }, <span class="pl-st">function</span> () {
+    <span class="pl-c">// Error callback</span>
+  }, <span class="pl-v">this</span>);
+
+canvasImageSaver.save();</pre></div>
+
+<blockquote>
+<p>TODO:
+Refactor using Q promises</p>
+</blockquote>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/aaccurso">aaccurso</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
