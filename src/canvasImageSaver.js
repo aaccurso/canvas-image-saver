@@ -19,13 +19,12 @@ function CanvasImageSaver (canvas, cropOptions, successCallback, errorCallback, 
       this.saverImplementator = {
         save: function (canvas) {
           window.canvas2ImagePlugin.saveImageDataToLibrary(
-            function(msg) {
-              console.log(msg);
-              _this.successCallback.call(_this.callbackContext, canvas);
+            function(fileName) {
+              _this.successCallback.call(_this.callbackContext, canvas, fileName);
             },
-            function(err) {
-              console.error(err);
-              _this.errorCallback.call(_this.callbackContext);
+            function(error) {
+              console.error(error);
+              _this.errorCallback.call(_this.callbackContext, error);
             },
             canvas
           );
