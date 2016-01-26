@@ -5,8 +5,8 @@ if (typeof exports === 'object' && typeof module !== 'undefined') {
 }
 
 function CanvasImageSaver (canvas, cropOptions, successCallback, errorCallback, callbackContext) {
-  var _this = this,
-      noop = function () {};
+  var noop = function () {};
+
   this.canvas = canvas;
   this.cropOptions = cropOptions;
   this.successCallback = successCallback || noop;
@@ -14,44 +14,15 @@ function CanvasImageSaver (canvas, cropOptions, successCallback, errorCallback, 
   this.callbackContext = callbackContext || this;
 
   if (window.cordova) {
-    if (window.canvas2ImagePlugin) {
-      // TODO: extract to a CordovaCanvasSaver object
-      this.saverImplementator = {
-        save: function (canvas) {
-          window.canvas2ImagePlugin.saveImageDataToLibrary(
-            function(fileName) {
-              _this.successCallback.call(_this.callbackContext, canvas, fileName);
-            },
-            function(error) {
-              console.error(error);
-              _this.errorCallback.call(_this.callbackContext, error);
-            },
-            canvas
-          );
-        }
-      };
-    } else {
-      throw('You are using cordova. This library requires canvas2ImagePlugin.');
-    }
+    this.saverImplementator = new CordovaCanvasSaver();
   } else {
-    // TODO: extract to a BrowserCanvasSaver object
-    this.saverImplementator = {
-      save: function (canvas) {
-        var anchor = document.createElement('a');
-        // TODO: configure name
-        anchor.download = 'canvas.png';
-        anchor.href = canvas.toDataURL('image/png');
-        anchor.click();
-        _this.successCallback.call(_this.callbackContext, canvas);
-      }
-    };
+    this.saverImplementator = new BrowserCanvasSaver();
   }
 };
 
 CanvasImageSaver.prototype = {
-  constructor: CanvasImageSaver,
   save: function () {
-    var canvas = this.canvas;
+    var canvas;
 
     if (this.cropOptions) {
       // Sets default crop options
@@ -69,8 +40,14 @@ CanvasImageSaver.prototype = {
         0, 0,
         canvas.width, canvas.height
       );
+    } else {
+      canvas = this.canvas;
     }
 
-    return this.saverImplementator.save(canvas);
+    return this.saverImplementator.save(
+      canvas,
+      this.successCallback.bind(this.callbackContext),
+      this.errorCallback.bind(this.callbackContext)
+    );
   }
 };
