@@ -34,9 +34,9 @@ var canvasImageSaver = new CanvasImageSaver(
     yCropOffset: 0,
     width: 470,
     height: this.game.height
-  }, function (canvas) {
+  }, function (canvas, fileName) {
     // Success callback
-  }, function () {
+  }, function (error) {
     // Error callback
   }, this);
 
