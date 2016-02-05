@@ -1,21 +1,20 @@
 /*!
- * canvasImageSaver v0.1.1
+ * canvasImageSaver v0.1.2
  * Copyright 2015 aaccurso <accurso.alan@gmail.com>
  * See LICENSE in this repository for license information
  */
 (function(global){
 'use strict';
 
-function BrowserCanvasSaver (fileName) {
+function BrowserCanvasSaver () {
   this.anchor = document.createElement('a');
-  this.fileName = fileName || 'canvas.png';
 }
 
-BrowserCanvasSaver.prototype.save = function(canvas, successCallback, errorCallback) {
-  this.anchor.download = this.fileName;
+BrowserCanvasSaver.prototype.save = function(canvas, successCallback, errorCallback, directory, filename) {
+  this.anchor.download = filename || 'canvas.png';
   this.anchor.href = canvas.toDataURL('image/png');
   this.anchor.click();
-  successCallback(canvas, fileName);
+  successCallback(canvas, filename);
 };
 
 if (typeof exports === 'object' && typeof module !== 'undefined') {
@@ -41,7 +40,7 @@ function CanvasImageSaver (canvas, cropOptions, successCallback, errorCallback, 
 };
 
 CanvasImageSaver.prototype = {
-  save: function () {
+  save: function (filename, directory) {
     var canvas;
 
     if (this.cropOptions) {
@@ -67,7 +66,9 @@ CanvasImageSaver.prototype = {
     return this.saverImplementator.save(
       canvas,
       this.successCallback.bind(this.callbackContext),
-      this.errorCallback.bind(this.callbackContext)
+      this.errorCallback.bind(this.callbackContext),
+      filename,
+      directory
     );
   }
 };
@@ -78,16 +79,18 @@ function CordovaCanvasSaver () {
   }
 }
 
-CordovaCanvasSaver.prototype.save = function(canvas, successCallback, errorCallback) {
+CordovaCanvasSaver.prototype.save = function(canvas, successCallback, errorCallback, filename, directory) {
   window.canvas2ImagePlugin.saveImageDataToLibrary(
-    function(fileName) {
-     successCallback(canvas, fileName);
+    function(pathToFile) {
+     successCallback(canvas, pathToFile);
     },
     function(error) {
       console.error(error);
       errorCallback(error);
     },
-    canvas
+    canvas,
+    filename,
+    directory
   );
 };
 

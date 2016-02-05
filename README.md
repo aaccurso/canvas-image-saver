@@ -2,7 +2,7 @@
 
 Cool library that let's you save your canvas as a png image on desktop and mobile. It also provides cropping options.
 
-> For mobile compatibility you need [Cordova](http://cordova.apache.org/) and [Canvas2ImagePlugin](https://github.com/devgeeks/Canvas2ImagePlugin) as dependencies.
+> For mobile compatibility you need [Cordova](http://cordova.apache.org/) and [Canvas2ImagePlugin](https://github.com/aaccurso/Canvas2ImagePlugin) as dependencies.
 
 ## Installation
 ### Bower
@@ -40,7 +40,7 @@ var canvasImageSaver = new CanvasImageSaver(
     // Error callback
   }, this);
 
-canvasImageSaver.save();
+canvasImageSaver.save(filename, directory);
 ```
 
 > TODO:

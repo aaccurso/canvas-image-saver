@@ -4,15 +4,17 @@ function CordovaCanvasSaver () {
   }
 }
 
-CordovaCanvasSaver.prototype.save = function(canvas, successCallback, errorCallback) {
+CordovaCanvasSaver.prototype.save = function(canvas, successCallback, errorCallback, filename, directory) {
   window.canvas2ImagePlugin.saveImageDataToLibrary(
-    function(fileName) {
-     successCallback(canvas, fileName);
+    function(pathToFile) {
+     successCallback(canvas, pathToFile);
     },
     function(error) {
       console.error(error);
       errorCallback(error);
     },
-    canvas
+    canvas,
+    filename,
+    directory
   );
 };

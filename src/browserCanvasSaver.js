@@ -1,11 +1,10 @@
-function BrowserCanvasSaver (fileName) {
+function BrowserCanvasSaver () {
   this.anchor = document.createElement('a');
-  this.fileName = fileName || 'canvas.png';
 }
 
-BrowserCanvasSaver.prototype.save = function(canvas, successCallback, errorCallback) {
-  this.anchor.download = this.fileName;
+BrowserCanvasSaver.prototype.save = function(canvas, successCallback, errorCallback, directory, filename) {
+  this.anchor.download = filename || 'canvas.png';
   this.anchor.href = canvas.toDataURL('image/png');
   this.anchor.click();
-  successCallback(canvas, fileName);
+  successCallback(canvas, filename);
 };

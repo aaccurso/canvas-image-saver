@@ -21,7 +21,7 @@ function CanvasImageSaver (canvas, cropOptions, successCallback, errorCallback, 
 };
 
 CanvasImageSaver.prototype = {
-  save: function () {
+  save: function (filename, directory) {
     var canvas;
 
     if (this.cropOptions) {
@@ -47,7 +47,9 @@ CanvasImageSaver.prototype = {
     return this.saverImplementator.save(
       canvas,
       this.successCallback.bind(this.callbackContext),
-      this.errorCallback.bind(this.callbackContext)
+      this.errorCallback.bind(this.callbackContext),
+      filename,
+      directory
     );
   }
 };
